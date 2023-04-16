@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import logo from '../../assets/images/Logo.svg'
 import { Link, NavLink } from 'react-router-dom';
+import { userContext } from '../../Utilities/AuthContext';
 const NavBar = () => {
+    const { user } = useContext(userContext);
     return (
         <nav className='bg-[#1C2B35] w-full sticky top-0 z-10 '>
             <div className="w-[90%] mx-auto flex items-center justify-between px-3 py-3">
@@ -12,12 +14,17 @@ const NavBar = () => {
                 </div>
                 <div className="text-white">
                     <ul className='flex gap-3'>
-                        <li><NavLink className={({isActive})=> isActive ? 'active-class' : ''} to="/">Home</NavLink></li>
-                        <li><NavLink className={({isActive})=> isActive ? 'active-class' : ''} to="/shop">Order</NavLink></li>
-                        <li><NavLink className={({isActive})=> isActive ? 'active-class' : ''} to="/order-review">Order Review</NavLink></li>
-                        <li><NavLink className={({isActive})=> isActive ? 'active-class' : ''} to="/manage-inventory">Manage Inventory</NavLink></li>
-                        <li><NavLink className={({isActive})=> isActive ? 'active-class' : ''} to="/login">Login</NavLink></li>
-                        <li><NavLink className={({isActive})=> isActive ? 'active-class' : ''} to="/signup">Sign Up</NavLink></li>
+                        <li><NavLink className={({ isActive }) => isActive ? 'active-class' : ''} to="/">Home</NavLink></li>
+                        <li><NavLink className={({ isActive }) => isActive ? 'active-class' : ''} to="/shop">Order</NavLink></li>
+                        <li><NavLink className={({ isActive }) => isActive ? 'active-class' : ''} to="/order-review">Order Review</NavLink></li>
+                        <li><NavLink className={({ isActive }) => isActive ? 'active-class' : ''} to="/manage-inventory">Manage Inventory</NavLink></li>
+                        {
+                            user ? <li><NavLink className={({ isActive }) => isActive ? 'active-class' : ''} to="/login">Logout</NavLink></li> :
+                                <>
+                                    <li><NavLink className={({ isActive }) => isActive ? 'active-class' : ''} to="/login">Login</NavLink></li>
+                                    <li><NavLink className={({ isActive }) => isActive ? 'active-class' : ''} to="/signup">Sign Up</NavLink></li>
+                                </>
+                        }
                     </ul>
                 </div>
             </div>

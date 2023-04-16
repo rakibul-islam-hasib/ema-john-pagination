@@ -1,8 +1,9 @@
 import React, { useContext, useState } from 'react';
 import { userContext } from '../../Utilities/AuthContext';
-import {MoonLoader} from 'react-spinners'
+import { MoonLoader } from 'react-spinners'
 const SignUp = () => {
-    const { createUser } = useContext(userContext);
+    const { createUser, user } = useContext(userContext);
+    console.log(user)
     const [loading, setLoading] = useState(false);
     const handelFromSubmit = (e) => {
         setLoading(true)
@@ -15,7 +16,7 @@ const SignUp = () => {
             .then(result => {
                 const user = result.user;
                 console.log(user)
-                setLoading(false); 
+                setLoading(false);
             })
             .catch(err => {
                 console.log(err.code)
@@ -27,7 +28,7 @@ const SignUp = () => {
         <div className='w-[90%] mx-auto'>
             {
                 loading ? <div className="h-screen flex justify-center items-center">
-                        <MoonLoader color="#36d7b7" />
+                    <MoonLoader color="#36d7b7" />
                 </div> :
                     <div className="border-[1px] border-[#95a0a77a] mt-5 w-[30%] mx-auto signUp-box-shadow  bg-white">
                         <h1 className='text-3xl font-medium text-center my-4'>Sign Up</h1>
