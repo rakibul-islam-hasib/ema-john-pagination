@@ -1,0 +1,12 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.active-class {
+    @apply text-red-400
+}
+
+.signUp-box-shadow {
+  box-shadow: -16px 16px 0px -4px rgba(255, 224, 179, 1);
+  border-radius: 10px; /*Add a radius of 10 pixels to the box-shadow*/
+}
