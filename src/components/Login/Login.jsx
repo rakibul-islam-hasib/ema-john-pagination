@@ -1,6 +1,8 @@
 import React, { useContext, useState } from 'react';
 import { userContext } from '../../Utilities/AuthContext';
 import { MoonLoader } from 'react-spinners'
+import { Link } from 'react-router-dom';
+import google from '../../assets/google.svg'
 const Login = () => {
     const { logIn } = useContext(userContext);
     const [loading, setLoading] = useState(false);
@@ -38,6 +40,16 @@ const Login = () => {
                             <input type="password" name='password' className='border w-full outline-none py-2 px-3 ' required placeholder='Password' />
                             <button className='py-2 w-full bg-[#ff99007f] text-xl font-medium  mt-9 mb-5 rounded-lg '>Login</button>
                         </form>
+                        <p className='text-center'><small>New to Ema-Jhon ? <Link className='text-[#FF9900]' to={'/signup'}>Sign Up</Link></small></p>
+                        <div className="flex items-center w-[80%] mx-auto">
+                            <div className="border-t border border-gray-400 flex-grow"></div>
+                            <div className="px-3 font-medium text-base text-gray-400">OR</div>
+                            <div className="border-t border border-gray-400 flex-grow"></div>
+                        </div>
+                        <div className="w-[80%] mb-5 flex rounded items-center justify-between px-10 py-1 mx-auto border">
+                            <img className='w-[30px] h-[30px]' src={google} alt="" />
+                            <p className='text-gray-500 font-semibold'>Continue with Google</p>
+                        </div>
                     </div>
             }
         </div>
