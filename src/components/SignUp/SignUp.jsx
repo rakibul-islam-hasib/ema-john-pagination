@@ -43,7 +43,7 @@ const SignUp = () => {
                             <input type="password" className='border w-full py-2 px-3 outline-none' name="confPassword" placeholder='Confirm Password' />
                             <button className='py-2 w-full bg-[#ff99007f] text-xl font-medium  my-8 rounded-lg '>Sign Up</button>
                         </form>
-                        <p className='text-center'><small>Already have an account ? <Link className='text-[#FF9900]' to={'/login'}>Logins</Link></small></p>
+                        <p className='text-center'><small>Already have an account ? <Link className='text-[#FF9900]' to={'/login'}>Login</Link></small></p>
                         <div className="flex items-center w-[80%] mx-auto">
                             <div className="border-t border border-gray-400 flex-grow"></div>
                             <div className="px-3 font-medium text-base text-gray-400">OR</div>
