@@ -2,7 +2,6 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
 const ReviewItem = ({ product, deleteProduct }) => {
-    console.log('first', product);
     const { name, id, price, quantity, img } = product;
     return (
         <div className='border flex pl-2 pr-5 py-2 justify-between rounded-xl mb-4'>

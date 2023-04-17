@@ -1,12 +1,15 @@
 import React, { useContext, useState } from 'react';
 import { userContext } from '../../Utilities/AuthContext';
 import { MoonLoader } from 'react-spinners'
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import google from '../../assets/google.svg'
 const Login = () => {
     const { logIn } = useContext(userContext);
     const [loading, setLoading] = useState(false);
+    const location = useLocation();
+    const navigate = useNavigate();
 
+    let from = location.state?.from?.pathname || '/' ; 
     const handelLoginFrom = (e) => {
         setLoading(true);
         e.preventDefault();
@@ -16,8 +19,9 @@ const Login = () => {
         logIn(email, password)
             .then(result => {
                 const user = result.user;
-                console.log(user)
-                setLoading(false)
+                console.log(user);
+                setLoading(false);
+                navigate(from)
             })
             .catch(err => {
                 console.log(err.code)

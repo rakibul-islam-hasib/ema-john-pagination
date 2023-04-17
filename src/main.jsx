@@ -14,6 +14,7 @@ import OrderReview from './components/OrderReview/OrderReview';
 import cartProductLoader from './components/Utilities/Loaders/cartProductLoader';
 import AuthContext from './Utilities/AuthContext';
 import SignUp from './components/SignUp/SignUp';
+import PrivetRoute from './Privet/PrivetRoute';
 const router = createBrowserRouter([
   {
     path: '/',
@@ -34,12 +35,12 @@ const router = createBrowserRouter([
       },
       {
         path: 'order-review',
-        element: <OrderReview />,
+        element: <PrivetRoute> <OrderReview /></PrivetRoute>,
         loader: cartProductLoader,
       },
       {
-        path : 'signup' , 
-        element: <SignUp/>
+        path: 'signup',
+        element: <SignUp />
       }
     ]
   }
