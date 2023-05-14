@@ -5,7 +5,7 @@ const shoppingCartIcon = <FontAwesomeIcon icon={faShoppingCart} />
 const Card = (props) => {
     // console.log(props)
     const handelCart = props.handelCart;
-    const { img, name, seller, ratings, price, id } = props.props;
+    const { img, name, seller, ratings, price, id } = props.product;
     return (
         <>
             <div className=" h-[450px] w-[300px] relative rounded-lg bg-base-100 border">

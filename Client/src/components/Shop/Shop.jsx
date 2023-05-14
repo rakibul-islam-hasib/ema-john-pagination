@@ -8,14 +8,14 @@ const Shop = () => {
     const [cart, setCart] = useState([]);
     // console.log(cart , 'cart')
     useEffect(() => {
-        fetch('products.json')
+        fetch('http://localhost:5000/shop')
             .then(res => res.json())
             .then(data => setProducts(data))
     }, []);
     const handelClearCart = () => {
         deleteShoppingCart();
         setCart([]); 
-        console.log('hjh')
+        // console.log('hjh')
     }
     useEffect(() => {
         const storedDB = getShoppingCart();
@@ -24,7 +24,7 @@ const Shop = () => {
         // step 1 get id 
         for (const id in storedDB) {
             // step 2 get the product by using id 
-            const savedProduct = products.find(product => product.id === id);
+            const savedProduct = products.find(product => product._id === id);
             // Step 3 get the quantity from the store 
             if (savedProduct) {
                 const quantity = storedDB[id];
@@ -39,7 +39,7 @@ const Shop = () => {
     const handelCart = (product) => {
         const newCart = [...cart, product];
         setCart(newCart);
-        addToDb(product.id);
+        addToDb(product._id);
         // console.log(id.props)
         // console.log(cart)
     }
@@ -48,7 +48,7 @@ const Shop = () => {
             <div className="ml-4 grid grid-cols-5">
                 <div className="col-span-4 mt-5 grid grid-cols-3 gap-6">
                     {
-                        products.map(product => <Card key={product.id} handelCart={handelCart} props={product}></Card>)
+                        products.map(product => <Card key={product._id} handelCart={handelCart} product={product}></Card>)
                     }
                 </div>
                 <div className="col-span-1">
