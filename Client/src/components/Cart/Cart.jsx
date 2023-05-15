@@ -7,7 +7,7 @@ let trash = <FontAwesomeIcon icon={faTrashCan} />
 let arrow = <FontAwesomeIcon icon={faArrowRight} />
 const Cart = ({ cart,  handelClearCart }) => {
     const navigator = useNavigate(); 
-  
+    
     let totalPrice = 0;
     let totalShipping = 0;
     let quantity = 0;
@@ -25,7 +25,7 @@ const Cart = ({ cart,  handelClearCart }) => {
     let tax = totalPrice * 2 / 100;
     let grandTotal = totalPrice + totalShipping + tax;
     return (
-        <div className='bg-[#ff99004d] sticky top-16 px-7 py-7 h-[100vh]'>
+        <div className='bg-[#ff99004d] sticky top-20 px-7 py-7 h-[100vh]'>
             <h1 className='text-center text-2xl font-semibold'>Order Summary</h1>
             <p className='my-1'>Selected Items : {quantity}</p>
             <p>Total Price : {addCommas(totalPrice)}$</p>

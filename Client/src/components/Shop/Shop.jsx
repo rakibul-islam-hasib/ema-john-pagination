@@ -7,7 +7,7 @@ import { useLoaderData } from 'react-router-dom';
 const Shop = () => {
     const [products, setProducts] = useState([]);
     const [cart, setCart] = useState([]);
-    const [currentPage, setCurrentPage] = useState(0); 
+    const [currentPage, setCurrentPage] = useState(0);
     const [itemPerPage, setItemPerPage] = useState(10);
     const { totalItem } = useLoaderData();
     // const itemPerPage = 10;
@@ -19,7 +19,7 @@ const Shop = () => {
         fetch(`http://localhost:5000/shop?page=${currentPage}&limit=${itemPerPage}`)
             .then(res => res.json())
             .then(data => setProducts(data))
-    }, [currentPage , itemPerPage]);
+    }, [currentPage, itemPerPage]);
     const handelClearCart = () => {
         deleteShoppingCart();
         setCart([]);
@@ -27,20 +27,32 @@ const Shop = () => {
     }
     useEffect(() => {
         const storedDB = getShoppingCart();
-        // console.log(storedDB)
+        console.log(storedDB)
         const storedCart = [];
-        // step 1 get id 
-        for (const id in storedDB) {
-            // step 2 get the product by using id 
-            const savedProduct = products.find(product => product._id === id);
-            // Step 3 get the quantity from the store 
-            if (savedProduct) {
-                const quantity = storedDB[id];
-                savedProduct.quantity = quantity;
-                storedCart.push(savedProduct);
-            }
-        }
-        setCart(storedCart);
+        /*  // step 1 get id 
+         for (const id in storedDB) {
+             // step 2 get the product by using id 
+             const savedProduct = products.find(product => product._id === id);
+             // Step 3 get the quantity from the store 
+             if (savedProduct) {
+                 const quantity = storedDB[id];
+                 savedProduct.quantity = quantity;
+                 storedCart.push(savedProduct);
+             }
+         } */
+        fetch('http://localhost:5000/product', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(Object.keys(storedDB))
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log("🚀 ~ file: Shop.jsx:52 ~ useEffect ~ data:", data)
+                console.log(data)
+                setCart(data);
+            })
         // console.log(storedCart)
 
     }, [products]);
@@ -56,7 +68,7 @@ const Shop = () => {
         { value: 15, label: '15 items per page' },
         // Add more options as needed
     ];
-    const handelOptionChange = e => { 
+    const handelOptionChange = e => {
         setItemPerPage(parseInt(e.target.value))
     }
     return (
@@ -72,19 +84,19 @@ const Shop = () => {
                 </div>
             </div>
             <div className="text-center my-9">
-                <h1>Current Page : {currentPage} and total item is {itemPerPage}</h1>
+                <h1>Current Page : {currentPage + 1} and total item is {itemPerPage}</h1>
                 {
                     pageNumber.map(item => <button
                         key={item}
                         onClick={() => setCurrentPage(item)}
                         className={`px-3 py-2 mx-1 ${currentPage === item ? 'bg-orange-400' : 'bg-pink-600'} rounded-lg text-white`}
                     >
-                        {item}
+                        {item + 1}
                     </button>)
                 }
                 <select onChange={handelOptionChange} value={itemPerPage} name="" className='px-4 outline-none border py-1' id="">
                     {
-                        options.map(option => <option  key={option.label} value={option.value}>{option.label}</option>)
+                        options.map(option => <option key={option.label} value={option.value}>{option.label}</option>)
                     }
                 </select>
             </div>
