@@ -16,7 +16,7 @@ const Card = (props) => {
                     <p>Manufacturer : {seller}</p>
                     <p>Rating : {ratings} Stars</p>
                 </div>
-                <button onClick={() => handelCart(props.props)} className='w-[100%] hover:bg-orange-300 transition-[2s] absolute bottom-0 rounded-b-lg py-2 mt-3 bg-[#FFE0B3]'>Add To Cart {shoppingCartIcon}</button>
+                <button onClick={() => handelCart(props.product)} className='w-[100%] hover:bg-orange-300 transition-[2s] absolute bottom-0 rounded-b-lg py-2 mt-3 bg-[#FFE0B3]'>Add To Cart {shoppingCartIcon}</button>
             </div>
         </>
     );

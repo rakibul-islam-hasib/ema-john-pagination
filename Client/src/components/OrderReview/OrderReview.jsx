@@ -14,7 +14,7 @@ const OrderReview = () => {
         deleteShoppingCart(); 
     }
     const deleteProduct =(id)=>{
-        const remaining = cart.filter(product => product.id !== id);
+        const remaining = cart.filter(product => product._id !== id);
         setCart(remaining); 
         // console.log(remaining , 'remaining')
         removeFromDb(id)
@@ -24,7 +24,7 @@ const OrderReview = () => {
         <div className='flex justify-between'>
             <div className=" w-[60%] mx-auto">
                 {
-                    cart.map(product => <ReviewItem deleteProduct={deleteProduct} key={product.id} product={product}/>)
+                    cart.map(product => <ReviewItem deleteProduct={deleteProduct} key={product._id} product={product}/>)
                 }
             </div>
             <div className="cart">

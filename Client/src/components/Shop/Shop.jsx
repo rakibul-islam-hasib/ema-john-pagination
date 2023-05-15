@@ -2,19 +2,27 @@ import React, { useEffect, useState } from 'react';
 import Card from '../Card/Card';
 import Cart from '../Cart/Cart';
 import { addToDb, deleteShoppingCart, getShoppingCart } from '../Utilities/fakedb';
+import { useLoaderData } from 'react-router-dom';
 
 const Shop = () => {
     const [products, setProducts] = useState([]);
     const [cart, setCart] = useState([]);
-    // console.log(cart , 'cart')
+    const [currentPage, setCurrentPage] = useState(0); 
+    const [itemPerPage, setItemPerPage] = useState(10);
+    const { totalItem } = useLoaderData();
+    // const itemPerPage = 10;
+    const totalPage = Math.ceil(totalItem / itemPerPage)
+    const pageNumber = [...Array(totalPage).keys()]
+
+
     useEffect(() => {
-        fetch('http://localhost:5000/shop')
+        fetch(`http://localhost:5000/shop?page=${currentPage}&limit=${itemPerPage}`)
             .then(res => res.json())
             .then(data => setProducts(data))
-    }, []);
+    }, [currentPage , itemPerPage]);
     const handelClearCart = () => {
         deleteShoppingCart();
-        setCart([]); 
+        setCart([]);
         // console.log('hjh')
     }
     useEffect(() => {
@@ -40,8 +48,16 @@ const Shop = () => {
         const newCart = [...cart, product];
         setCart(newCart);
         addToDb(product._id);
-        // console.log(id.props)
-        // console.log(cart)
+
+    }
+    const options = [
+        { value: 5, label: '5 items per page' },
+        { value: 10, label: '10 items per page' },
+        { value: 15, label: '15 items per page' },
+        // Add more options as needed
+    ];
+    const handelOptionChange = e => { 
+        setItemPerPage(parseInt(e.target.value))
     }
     return (
         <div>
@@ -54,6 +70,23 @@ const Shop = () => {
                 <div className="col-span-1">
                     <Cart handelClearCart={handelClearCart} cart={cart}></Cart>
                 </div>
+            </div>
+            <div className="text-center my-9">
+                <h1>Current Page : {currentPage} and total item is {itemPerPage}</h1>
+                {
+                    pageNumber.map(item => <button
+                        key={item}
+                        onClick={() => setCurrentPage(item)}
+                        className={`px-3 py-2 mx-1 ${currentPage === item ? 'bg-orange-400' : 'bg-pink-600'} rounded-lg text-white`}
+                    >
+                        {item}
+                    </button>)
+                }
+                <select onChange={handelOptionChange} value={itemPerPage} name="" className='px-4 outline-none border py-1' id="">
+                    {
+                        options.map(option => <option  key={option.label} value={option.value}>{option.label}</option>)
+                    }
+                </select>
             </div>
         </div>
     );

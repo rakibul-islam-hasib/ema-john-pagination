@@ -6,7 +6,7 @@ import { Navigate, useLocation } from 'react-router-dom';
 const PrivetRoute = ({ children }) => {
     const { user , loading} = useContext(userContext);
     const location = useLocation();
-    console.log(location)
+    // console.log(location)
     if (loading) {
         return <div className="h-screen w-full flex justify-center items-center ">
             <FadeLoader color="#36d7b7" />

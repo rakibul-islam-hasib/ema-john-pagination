@@ -29,13 +29,20 @@ async function run() {
   try {
     // Connect the client to the server	(optional starting in v4.7)
     await client.connect();
-    const emaJhon = client.db('emajhon').collection('shopDB'); 
+    const emaJhon = client.db('emajhon').collection('shopDB');
 
-    app.get('/shop' , async(req , res)=> {
-        const result = await emaJhon.find().toArray(); 
-        res.send(result); 
+    app.get('/shop', async (req, res) => {
+      console.log(req.query)
+      const result = await emaJhon.find().toArray();
+      res.send(result);
     })
-    
+
+    // get total number of count per page 
+    app.get('/totalData', async (req, res) => {
+      const result = await emaJhon.estimatedDocumentCount();
+      res.send({ totalItem: result })
+    })
+
     // Send a ping to confirm a successful connection
     // await client.db("admin").command({ ping: 1 });
     console.log("Pinged your deployment. You successfully connected to MongoDB!");
@@ -44,13 +51,13 @@ async function run() {
     // await client.close();
   }
 }
-run().catch(console.dir); 
+run().catch(console.dir);
 
 
-app.get('/' , (req , res)=>{
-    res.send('SERVER IS RUNNING')
+app.get('/', (req, res) => {
+  res.send('SERVER IS RUNNING')
 })
 
-app.listen(port , ()=>{
+app.listen(port, () => {
   console.log(`SERVER IS RUNNING AT PORT : ${port}`)
 })
